@@ -1,0 +1,68 @@
+.chat {
+  width: 100%;
+  min-height: 200px;
+  padding: 15px;
+  background-color: $transparent_gray;
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
+
+  &__timer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 7px;
+    background-color: $ready_green;
+    animation: timer;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes timer {
+    0% {width: 100%}
+    100% {width: 0%}
+  }
+
+  .messages {
+    width: 100%;
+    height: 170px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    .message {
+      padding: 10px 0;
+
+      &::-webkit-scrollbar {
+          display: none;
+      }
+
+      &__author {
+        font-size: 1.1rem;
+        margin-right: 7px;
+      }
+      &__content {
+        background-color: $white
+      }
+    }
+  }
+  &__compose {
+    position: relative;
+    width: 100%;
+
+    .chat-input {
+      width: 100%;
+      padding: 0 50px 0 10px;
+      text-align: left;
+    }
+    .send-message-btn {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      bottom: -1px;
+      right: 10px;
+      background: none;
+      border: none;
+    }
+  }
+}

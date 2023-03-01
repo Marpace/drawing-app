@@ -1,0 +1,10 @@
+.player-avatar {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 60px;
+  max-height: 60px;
+  border-radius: 50%;
+  background-color: $white;
+  background-image: url(../../assets/images/player_icon.png);
+  background-size: 100% 100%;
+}

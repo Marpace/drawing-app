@@ -1,0 +1,48 @@
+body, button,input, input::placeholder {
+    font-family: "Righteous-Regular", sans-serif;
+    font-size: 16px;
+}
+
+h1, h2, h3, span, p {
+    color: $white;
+}
+
+input {
+    width: 80%;
+    max-width: 350px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid $white;
+    text-align: center;
+    color: $white;
+    background: none;
+    &::placeholder {
+        color: rgb(214, 213, 213);
+    }
+}
+
+.text--medium {
+    font-size: 1.3rem;
+    color: $white;
+    text-align: center;
+}
+
+.text--green {
+    font-size: .9rem;
+    padding: 2px 7px;
+    border-radius: 3px;
+    color: black;
+    background-color: $ready_green;
+    text-align: center;
+}
+
+// FONTS
+
+@font-face {
+    font-family: 'Righteous-Regular';
+    src: url('../assets/fonts/Righteous-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

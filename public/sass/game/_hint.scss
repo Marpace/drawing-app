@@ -1,0 +1,47 @@
+.hint {
+  height: 40px;
+  width: 40px;
+  background-color: $transparent_gray;
+  padding: 5px;
+  border-radius: 4px;
+
+  &__blank {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 90%;
+    padding: 5px 10px;
+    position: absolute;
+    top: calc(100% + 30px);
+    left: 50%;
+    translate: -50% 0;
+    border-radius: 5px;
+    background-color: $transparent_gray;
+    transition-property: top;
+    transition-duration: 400ms;
+    
+    .blank-word {
+      display: flex;
+      gap: 5px;
+      margin: 0 10px;
+      
+      .blank-section {
+        @include flex_centered(row);
+        align-items: flex-end;
+        height: 25px;
+  
+        .blank-underline {
+          width: 20px;
+          height: 2px;
+          background-color: $white;
+        }
+        .space {
+          width: 20px;
+        }
+      }
+    }
+  }
+  .hint-hidden {
+    top: -150px;
+  }
+}

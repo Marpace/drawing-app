@@ -1,0 +1,34 @@
+.game-screen {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+
+
+  &__heading {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+  }
+  .canvas {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: $white;
+    touch-action: none;
+  }
+  .disabled-canvas {
+    touch-action: auto;
+  }
+
+
+  @import "tool-bar";
+  @import "choose-word-modal";
+  @import "round-over-modal";
+  @import "chat";
+  @import "hint";
+}
+

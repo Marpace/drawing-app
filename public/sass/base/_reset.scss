@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+main {
+    width: 100%;
+    min-height: 100vh;
+    @include flex_centered(column);
+    justify-content: flex-start;
+    padding: 50px 10%;
+    gap: 20px;
+    background-image: radial-gradient($light_blue, $dark_blue);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.game-main {
+    padding: 20px 5%;
+}
+
+
+
+.disabled {
+    pointer-events: none;
+}
+.visible {
+    opacity: 1 !important;
+}
+
+.invisible {
+    opacity: 0 !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.show-flex {
+    display: flex !important;
+}
+.show-block {
+    display: block !important;
+}
