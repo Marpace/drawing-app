@@ -1,0 +1,104 @@
+.game-modal {
+  padding-top: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.6);
+
+  &__body {
+    position: relative;
+    width: 90%;
+    padding: 40px 20px;
+    margin: 0 auto;
+    @include flex_centered(column);
+    gap: 50px;
+    background-color: $dark_blue;
+    border-radius: 10px;
+    overflow: hidden;
+    animation: showModal;
+    animation-duration: 500ms;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 7px;
+      background-color: $ready_green;
+      animation: timer;
+      animation-duration: 20s;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes timer {
+      0% {width: 100%}
+      100% {width: 0%}
+    }
+
+    &-standings {
+      width: 80%;
+      max-width: 300px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+
+      .standings-player {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        &__avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: $transparent_gray;
+        }
+        .winner {
+          outline: 3px solid $winner_yellow;
+        }
+        &__name {
+          width: 40%;
+          height: 100%;
+          font-size: 1.2rem;
+        }
+        &__score {
+          padding: 3px 0;
+          width: 80px;
+          color: black;
+          background-color: $white;
+          border-radius: 3px;
+          font-size: .9rem;
+          align-self: flex-end;
+          text-align: center;
+        }
+      }
+    }
+    
+  }
+  .round-over-modal-body {
+    gap: 20px;
+
+    &::before {
+      animation-duration: 10s;
+    }
+  }
+  .hide-modal {
+    animation: hideModal;
+    animation-duration: 500ms;
+  }
+  @keyframes showModal {
+    0% {opacity: 0; translate: 0 -50px;}
+    100% {opacity: 1; translate: 0 0px;}
+  }
+  @keyframes hideModal {
+    0% {opacity: 1; translate: 0 0px;}
+    100% {opacity: 0; translate: 0 -50px;}
+  }
+}

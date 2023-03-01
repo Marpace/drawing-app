@@ -1,0 +1,88 @@
+.tool-bar {
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 7px;
+  background-color: $light_blue;
+  position: relative;
+  @include flex_centered(row);
+  justify-content: space-between;
+
+  .color-picker {
+    width: 40px;
+    height: 20px;
+    border: 2px solid $light_blue;
+    outline: 1px solid $dark_blue;
+    border-radius: 3px;
+    background-color: $white;
+
+    &__palette {
+      height: 50px;
+      width: 100%;
+      padding: 0 5%;
+      position: absolute;
+      top: -70px;
+      left: 0;
+      border-radius: 0 0 10px 10px;
+      background-color: $light_blue;
+      @include flex_centered(row);
+      justify-content: space-between;
+      overflow: hidden;
+
+      .palette-color {
+        height: 30px;
+        width: 30px;
+        background-color: $white;
+        border-radius: 3px;
+      }
+    }
+  }
+  .brush-size-picker {
+    
+
+    &__set {
+      width: 80px;
+      height: 90vw;
+      padding: 0 10px;
+      position: absolute;
+      left: 0;
+      bottom: calc(100% + 20px);
+      border-radius: 10px 0 0 10px;
+      background-color: $light_blue;
+      @include flex_centered(column);
+      gap: 20px;
+
+      span {
+        width: 100%;
+        background-color: black;
+        border-radius: 2px;
+      }
+      .brush-1 {
+        height: 20px;
+      }
+      .brush-2 {
+        height: 15px;
+      }
+      .brush-3 {
+        height: 11px;
+      }
+      .brush-4 {
+        height: 7px;
+      }
+      .brush-5 {
+        height: 4px;
+      }
+
+
+    }
+  }
+  .option-active {
+    outline: 2px solid $white;
+    padding: 4px;
+    border-radius: 3px;
+  }
+  .clear-btn {
+    color: black;
+    user-select: none;
+  }
+}

@@ -1,0 +1,76 @@
+.game-lobby {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  .lobby-text {
+    font-size: 1.2rem;
+    align-self: flex-start;
+  }
+  .lobby-players {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: $transparent_gray;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    &__player {
+      width: 30%;
+      aspect-ratio: 1 / 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+
+      .admin-status{
+        background-color: $white
+      }
+    }
+    .player-admin {
+      .player-avatar {
+        outline: 4px solid $ready_green;
+      }
+    }
+  }
+  .game-code-info {
+    text-align: center;
+  }
+  .game-code {
+    padding: 5px 15px;
+    background-color: $ready_green;
+    color: black;
+    border-radius: 5px;
+  }
+  .drawing-time {
+    padding: 20px;
+    @include flex_centered(row);
+    flex-wrap: wrap;
+    gap: 20px;
+    background-color: $transparent_gray;
+
+    &__heading {
+      width: 100%;
+      text-align: left;
+    }
+    &__option {
+      width: 40%;
+      text-align: center;
+    }
+  }
+  .lobby-btn {
+    width: 100%;
+    max-width: 350px;
+    padding: 10px;
+    background-color: $white;
+    text-decoration: none;
+    text-align: center;
+    color: $font-blue;
+    border-radius: 5px;
+    border: none;
+  }
+}
