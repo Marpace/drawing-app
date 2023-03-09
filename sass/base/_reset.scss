@@ -21,6 +21,9 @@ main {
 }
 .game-main {
     padding: 20px 5%;
+    @include responsive($desktop) {
+        justify-content: center;
+    }
 }
 
 

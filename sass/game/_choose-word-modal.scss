@@ -7,10 +7,14 @@
   height: 100vh;
   backdrop-filter: blur(3px);
   background-color: rgba(0, 0, 0, 0.6);
+  @include responsive($desktop) {
+    @include flex_centered(row);
+  }
 
   &__body {
     position: relative;
     width: 90%;
+    max-width: 600px;
     padding: 40px 20px;
     margin: 0 auto;
     @include flex_centered(column);

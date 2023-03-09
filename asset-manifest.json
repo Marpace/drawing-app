@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/drawing-app/static/js/main.551631b9.js",
+    "main.js": "/drawing-app/static/js/main.ffac3166.js",
     "index.html": "/drawing-app/index.html",
-    "main.551631b9.js.map": "/drawing-app/static/js/main.551631b9.js.map"
+    "main.ffac3166.js.map": "/drawing-app/static/js/main.ffac3166.js.map"
   },
   "entrypoints": [
-    "static/js/main.551631b9.js"
+    "static/js/main.ffac3166.js"
   ]
 }

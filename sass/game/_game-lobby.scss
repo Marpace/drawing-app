@@ -8,10 +8,11 @@
 
   .lobby-text {
     font-size: 1.2rem;
-    align-self: flex-start;
+    align-self: center;
   }
   .lobby-players {
     width: 100%;
+    max-width: 350px;
     padding: 20px;
     border-radius: 10px;
     background-color: $transparent_gray;
@@ -48,10 +49,12 @@
   }
   .drawing-time {
     padding: 20px;
+    max-width: 350px;
     @include flex_centered(row);
     flex-wrap: wrap;
     gap: 20px;
     background-color: $transparent_gray;
+    border-radius: 10px;
 
     &__heading {
       width: 100%;
@@ -60,6 +63,7 @@
     &__option {
       width: 40%;
       text-align: center;
+      cursor: pointer;
     }
   }
   .lobby-btn {
