@@ -1,4 +1,3 @@
-// import {useOnDraw} from "../hooks/Hooks";
 import {useRef, useEffect, useState, useContext} from "react";
 import {SocketContext} from "../context/socketContext";
 
@@ -21,10 +20,6 @@ function Canvas(props) {
   }, [socket])
 
   useEffect(() => {
-    clearCanvas();
-  }, [props.clearCanvas])
-
-  useEffect(() => {
     undo();
   }, [props.undo])
 
@@ -36,6 +31,7 @@ function Canvas(props) {
   }
 
   function handleClearCanvasResponse() {
+    console.log("Canvas cleared")
     const ctx = canvasRef.current.getContext("2d");
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
   }
@@ -56,18 +52,18 @@ function Canvas(props) {
   function mouseMoveListener(e) {
     if(isDrawingRef.current) {
       const point = getPointInCanvas(e.clientX ?? e.touches[0].clientX, e.clientY ?? e.touches[0].clientY);
-      setPoints(prev => [...prev, point])
+      setPoints(prev => [...prev, point]);
       const ctx = canvasRef.current.getContext("2d")
       const color = props.eraserActive ? "rgb(247, 247, 247)" : props.brushColor;
       const width = props.eraserActive ? 18 : props.brushSize;
-      drawLine(previousPoint.current, point, ctx, color, width)
+      drawLine(previousPoint.current, point, ctx, color, width);
       const data = {
         start: previousPoint.current,
         end: point,
         color: color,
         width: width
       }
-      socket.emit("drawing", data)
+      socket.emit("drawing", data);
       previousPoint.current = point;
     }
   }
@@ -88,14 +84,15 @@ function Canvas(props) {
   }
 
 
-
   // canvas functions 
   function getPointInCanvas(clientX, clientY) {
     if(!canvasRef.current) return null;
     const boundingRect = canvasRef.current.getBoundingClientRect();
+    const scaleX = canvasRef.current.width / boundingRect.width;
+    const scaleY = canvasRef.current.height / boundingRect.height;
     return {
-      x: clientX - boundingRect.left,
-      y: clientY - boundingRect.top
+      x: (clientX - boundingRect.left) * scaleX,
+      y: (clientY - boundingRect.top) * scaleY
     }
   }
 
@@ -114,13 +111,6 @@ function Canvas(props) {
     ctx.moveTo(start.x, start.y)
     ctx.lineTo(end.x, end.y)
     ctx.stroke();
-  }
-
-  function clearCanvas() {
-    console.log("canvas cleared")
-    const ctx = canvasRef.current.getContext("2d")
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-    socket.emit("clearCanvas")
   }
 
   function undo() {
@@ -149,6 +139,7 @@ function Canvas(props) {
 
   return (
     <canvas
+      ref={canvasRef}
       className={props.isCurrentPlayer ? "canvas" : "canvas canvas-disabled"}
       width={props.width}
       height={props.height}
@@ -158,7 +149,6 @@ function Canvas(props) {
       onTouchStart={props.isCurrentPlayer ? mouseDownListener : null}
       onTouchMove={props.isCurrentPlayer ? mouseMoveListener : null}
       onTouchEnd={props.isCurrentPlayer ? mouseUpListener : null}
-      ref={canvasRef}
     />
   )
 

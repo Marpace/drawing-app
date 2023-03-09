@@ -1,8 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import {useNavigate} from "react-router-dom";
 import {SocketContext} from "../context/socketContext";
 
 function Home(props) {
+
+  const inputRef = useRef(null);
 
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
@@ -38,7 +40,6 @@ function Home(props) {
     }
   }
 
-
   function getRandomAvatars() { 
     let avatars = []
     for(let i = 0; i <= 8; i++) {
@@ -58,6 +59,15 @@ function Home(props) {
     return result;
   }
 
+  function handleCodeSubmit(e) {
+    e.preventDefault();
+    socket.emit("validateCode", joinGameCode)
+  }
+
+  function handleJoinGameBtnClick() {
+    setShowCodeInput(true)
+    inputRef.current.focus();
+  }
 
   return (
     <main>
@@ -66,6 +76,7 @@ function Home(props) {
         className="username-input"
         onChange={(e) => props.setUsername(e.target.value)} 
         type="text" 
+        maxLength="10"
         placeholder="Enter your username"
         value={props.username}>
       </input>
@@ -94,26 +105,26 @@ function Home(props) {
         Create game
       </button>
       <button 
-        onClick={() => setShowCodeInput(true)} 
+        onClick={handleJoinGameBtnClick} 
         className={`home-btn ${props.username === "" || props.avatarUrl === "" ? "hidden" : ""}`}>
         Join game
       </button>
-      <div className={`code-input-container ${showCodeInput ? "" : "hidden"}`}>
+      <form onSubmit={handleCodeSubmit} className={`code-input-form ${showCodeInput ? "show-form" : ""}`}>
         <input 
+          ref={inputRef}
           className="code-input"  
           type="text"
-          maxLength="10"
+          placeholder="Enter game code"
           onChange={(e) => setJoinGameCode(e.target.value)}
           value={joinGameCode}>
         </input>    
         <p className="join-game-message">{joinGameMessage}</p>
         <button 
-          onClick={() => socket.emit("validateCode", joinGameCode)} 
           className={`home-btn`}
           to="/game">
           Join
         </button>
-      </div>
+      </form>
 
     </main>
   )

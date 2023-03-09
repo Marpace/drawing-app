@@ -1,0 +1,29 @@
+.game-players {
+  display: none;
+  @include responsive($desktop) {
+    display: block;
+    width: fit-content;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__player {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+
+    &-avatar {
+      width: 30px;
+      height: 30px;
+      background-color: $transparent_gray;
+      border-radius: 50%;
+    }
+    .player--green {
+      outline: 4px solid $ready_green;
+    }
+  }
+}

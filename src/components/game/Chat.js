@@ -11,11 +11,9 @@ function Chat(props) {
 
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState([]);
-  const [guessedCorrectly, setGuessedCorrectly] = useState(false);
 
   useEffect(() => {
     socket.on("newGuessResponse", (data) => setMessages(prev => [...prev, data]));
-    socket.on("guessedCorrectly", () => setGuessedCorrectly(true))
   }, [socket])
 
   useEffect(() => {
@@ -24,13 +22,14 @@ function Chat(props) {
 
   useEffect(() => {
     if(props.roundInProgress) {
-      setGuessedCorrectly(false);
+      props.setGuessedCorrectly(false);
       setMessages([]);
     }
   }, [props.roundInProgress])
   
 
-  function handleSendMessageClick() {
+  function handleNewGuessSubmit(e) {
+    e.preventDefault();
     if(inputValue === "") return;
     socket.emit("newGuess", inputValue);
     setInputValue("");
@@ -42,14 +41,16 @@ function Chat(props) {
     <div className={`chat`}>
       <div className={props.roundInProgress && !props.chooseWord ? "chat__timer" : "hidden"} style={{"animationDuration": props.roundDuration}}></div>
       <div className="messages" ref={messagesRef}>
+
         {messages.map((message, index) => (
           <ChatMessage 
             key={index}
             message={message}
           />
         ))}
+
       </div>
-      <div className={`chat__compose ${props.isCurrentPlayer || guessedCorrectly ? "hidden" : ""}`}>
+      <form onSubmit={handleNewGuessSubmit} className={`chat__compose ${props.isCurrentPlayer || props.guessedCorrectly ? "hidden" : ""}`}>
         <input 
           ref={inputRef}
           className={`chat-input`} 
@@ -58,11 +59,10 @@ function Chat(props) {
           type="text">
         </input>
         <button 
-          onClick={handleSendMessageClick} 
           className={`send-message-btn`}>
             <img src="./assets/images/send_icon.svg" alt="arrow icon"></img>
         </button>
-      </div>
+      </form>
     </div>
   )
 }

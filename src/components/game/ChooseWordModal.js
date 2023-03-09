@@ -14,7 +14,6 @@ function ChooseWordModal(props) {
   }, [socket])
   
   useEffect(() => {
-    console.log(props.isCurrentPlayer)
     if(props.isCurrentPlayer) {
       socket.emit("getWords");
     } 

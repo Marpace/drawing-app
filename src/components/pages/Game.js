@@ -2,21 +2,29 @@ import { useContext, useEffect, useState } from "react";
 import {SocketContext} from "../context/socketContext";
 import GameLobby from "../game/GameLobby";
 import GameInProgress from "../game/GameInProgress";
+import { useNavigate } from "react-router-dom";
 
 
 function Game(props) {
 
-  const socket = useContext(SocketContext);
+  const navigate = useNavigate();
+
+  const socket = useContext(SocketContext); 
   const [isCurrentPlayer, setIsCurrentPlayer] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [chooseWord, setChooseWord] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState({});
-  const [roundDuration, setRoundDuration] = useState("60s")
-  const [players, setPlayers] = useState([])
-  const [roundInProgress, setRoundInProgress] = useState(false)
-  const [gameOver, setGameOver] = useState(false)
+  const [roundDuration, setRoundDuration] = useState("60s");
+  const [players, setPlayers] = useState([]);
+  const [roundInProgress, setRoundInProgress] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
+    window.onbeforeunload = () => {
+      return true;
+    }
+
+
     if(props.createGame) {
       socket.emit("createGame", {
         username: props.username, 
@@ -37,6 +45,10 @@ function Game(props) {
     socket.on("gameOver", handleGameOver)
   }, [socket])
 
+  useEffect(() => {
+    if(!props.username) navigate("/")
+  }, [props.username])
+
   function handleGameOver(data) {
     setPlayers(data)
     setGameStarted(false)
@@ -54,10 +66,8 @@ function Game(props) {
     setPlayers(data.players);
     setIsCurrentPlayer(false);
     setGameOver(data.gameOver);
-    console.log(data.winner)
+    socket.emit("clearCanvas")
   }
-
-
 
   return (
     <main className="game-main">
@@ -72,7 +82,9 @@ function Game(props) {
         setRoundDuration={setRoundDuration}
         setRoundInProgress={setRoundInProgress}
       />
+
       <GameInProgress 
+        username={props.username}
         isCurrentPlayer={isCurrentPlayer}
         chooseWord={chooseWord}
         currentPlayer={currentPlayer}

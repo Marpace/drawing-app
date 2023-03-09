@@ -1,5 +1,6 @@
 .tool-bar {
   width: 100%;
+  max-width: 600px;
   height: 50px;
   padding: 0 20px;
   border-radius: 7px;
@@ -8,6 +9,16 @@
   @include flex_centered(row);
   justify-content: space-between;
 
+  @include responsive($desktop) {
+    width: 100px;
+    height: 600px;
+    padding: 20px 15px;
+    flex-direction: column;
+  }
+
+  .game-screen__desktop-heading {
+    justify-content: flex-start;
+  }
   .color-picker {
     width: 40px;
     height: 20px;
@@ -15,19 +26,35 @@
     outline: 1px solid $dark_blue;
     border-radius: 3px;
     background-color: $white;
+    @include responsive($desktop) {
+      width: 100%;
+      height: fit-content;
+      border: none;
+      outline: none;
+      background-color: none;
+    }
 
     &__palette {
       height: 50px;
       width: 100%;
+      max-width: 600px;
       padding: 0 5%;
       position: absolute;
-      top: -70px;
+      top: -60px;
       left: 0;
       border-radius: 0 0 10px 10px;
       background-color: $light_blue;
       @include flex_centered(row);
       justify-content: space-between;
       overflow: hidden;
+      @include responsive($desktop) {
+        position: static;
+        height: fit-content;
+        gap: 10px;
+        border-radius: 0;
+        overflow: visible;
+        padding: 0;
+      }
 
       .palette-color {
         height: 30px;
@@ -35,22 +62,39 @@
         background-color: $white;
         border-radius: 3px;
       }
+      .color-active {
+        outline: 3px solid white;
+      }
     }
   }
   .brush-size-picker {
-    
+    @include responsive($desktop) {
+      width: 100%
+    }
 
+    &__icon {
+      @include responsive($desktop) {
+        display: none;
+      }
+    }
     &__set {
       width: 80px;
       height: 90vw;
+      max-height: 600px;
       padding: 0 10px;
       position: absolute;
       left: 0;
-      bottom: calc(100% + 20px);
+      bottom: calc(100% + 10px);
       border-radius: 10px 0 0 10px;
       background-color: $light_blue;
       @include flex_centered(column);
       gap: 20px;
+      @include responsive($desktop) {
+        position: static;
+        height: fit-content;
+        width: 100%;
+        padding: 0;
+      }
 
       span {
         width: 100%;
@@ -72,7 +116,11 @@
       .brush-5 {
         height: 4px;
       }
-
+      .brush-active {
+        @include responsive($desktop) {
+          outline: 3px solid white;
+        }
+      }
 
     }
   }
@@ -80,6 +128,11 @@
     outline: 2px solid $white;
     padding: 4px;
     border-radius: 3px;
+    // @include responsive($desktop) {
+    //   outline: none;
+    //   padding: 0;
+    // }
+
   }
   .clear-btn {
     color: black;

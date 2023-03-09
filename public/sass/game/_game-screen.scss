@@ -5,16 +5,42 @@
   gap: 10px;
   width: 100%;
   height: 100%;
+  @include responsive($desktop) {
+    flex-wrap: nowrap;
+    gap: 20px;
+  }
 
 
   &__heading {
     width: 100%;
+    max-width: 600px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     position: relative;
+    @include responsive($desktop){
+      display: none;
+    }
+  }
+  &__desktop-heading {
+    display: none;
+    @include responsive($desktop) {
+      display: flex;
+      gap: 20px;
+      position: absolute;
+      top: -30px;
+      width: 400px;
+      left: 120px;
+    }
+  }
+  .current-player-heading {
+    justify-content: center;
+    gap: 20px;
   }
   .canvas {
+    width: 90vw;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
     border-radius: 10px;
     overflow: hidden;
     background-color: $white;
@@ -30,5 +56,6 @@
   @import "round-over-modal";
   @import "chat";
   @import "hint";
+  @import "game-players";
 }
 
