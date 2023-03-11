@@ -9,7 +9,7 @@ import Hint from "./Hint";
 import GamePlayers from "./GamePlayers";
 
 
-function GameScreen(props) {
+function GameInProgress(props) {
 
   const socket = useContext(SocketContext);
 
@@ -121,4 +121,4 @@ function GameScreen(props) {
   )
 }
 
-export default GameScreen;
+export default GameInProgress;

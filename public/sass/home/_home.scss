@@ -8,7 +8,6 @@
   justify-content: space-between;
   gap: 30px;
   border-radius: 10px;
-  margin-bottom: 50px;
 
   &__heading {
     text-align: center;
@@ -16,7 +15,7 @@
   }
   &__grid {
     width: 100%;
-    max-width: 250px;
+    max-width: 200px;
     aspect-ratio: 1 / 1;
     display: flex;
     flex-wrap: wrap;
@@ -26,10 +25,11 @@
     .grid-img {
       width: 23%;
       height: 23%;
-      max-width: 60px;
-      max-height: 60px;
+      max-width: 50px;
+      max-height: 50px;
       border-radius: 50%;
       background-color: $transparent_gray;
+      cursor:pointer;
     }
     .img--selected {
       outline: 4px solid $ready_green;
@@ -39,6 +39,7 @@
     background-color: $ready_green;
     padding: 4px 15px;
     border-radius: 3px;
+    cursor:pointer;
   }
 }
 .home-btn {
@@ -51,6 +52,7 @@
   color: $font-blue;
   border-radius: 5px;
   border: none;
+  cursor:pointer;
 }
 .code-input-form {
   width: 100%;

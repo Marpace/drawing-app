@@ -18,11 +18,12 @@ function Game(props) {
   const [players, setPlayers] = useState([]);
   const [roundInProgress, setRoundInProgress] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [lobbyMessage, setLobbyMessage] = useState("")
 
   useEffect(() => {
-    window.onbeforeunload = () => {
-      return true;
-    }
+    // window.onbeforeunload = () => {
+    //   return true;
+    // }
 
 
     if(props.createGame) {
@@ -43,6 +44,7 @@ function Game(props) {
     socket.on("joinGameResponse", (data) => setPlayers(data))
     socket.on("roundOver", handleRoundOver)
     socket.on("gameOver", handleGameOver)
+    socket.on("playerDisconnected", (players) => setPlayers(players))
   }, [socket])
 
   useEffect(() => {
@@ -54,10 +56,15 @@ function Game(props) {
     setGameStarted(false)
   }
 
-  function handleStartGameResponse(player) {
+  function handleStartGameResponse(data) {
+    console.log(data)
+    if(data.playerCount <= 1) {
+      setLobbyMessage("Not enough players to start the game");
+      return;
+    }
     setGameStarted(true);
     setChooseWord(true);
-    setCurrentPlayer(player);
+    setCurrentPlayer(data.player);
     setRoundInProgress(true);
   }
 
@@ -77,6 +84,7 @@ function Game(props) {
         joinGame={props.joinGame}
         roundDuration={roundDuration}
         players={players}
+        lobbyMessage={lobbyMessage}
         setPlayers={setPlayers}
         setGameStarted={setGameStarted}
         setRoundDuration={setRoundDuration}

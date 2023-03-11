@@ -29,7 +29,6 @@ function GameLobby(props) {
     props.setPlayers(data.players);
   }
 
-
   return (
     <div className={`game-lobby ${props.gameStarted ? "hidden" : ""}`}>
       <p className="lobby-text">Waiting for players...</p>
@@ -40,6 +39,7 @@ function GameLobby(props) {
             player={player}
           />
         ))}
+      <p className={`lobby-message ${props.players.length <= 1 ? "" : "hidden"}`}>{props.lobbyMessage}</p>
       </div> 
       <p className={`game-code-info ${!roomCode ? "hidden" : ""}`}>Share this game code with other players:</p>
       <p className={`game-code ${!roomCode ? "hidden" : ""}`}>{roomCode}</p>

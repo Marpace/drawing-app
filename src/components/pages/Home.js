@@ -9,10 +9,6 @@ function Home(props) {
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
 
-
-  // const [usernameValue, setUsernameValue] = useState("");
-  // const [avatarUrl, setAvatarUrl] = useState("");
-
   const [imageUrls, setImageUrls] = useState([]);
  
   const [showCodeInput, setShowCodeInput] = useState(false);
@@ -41,12 +37,12 @@ function Home(props) {
   }
 
   function getRandomAvatars() { 
-    let avatars = []
+    let avatars = [];
     for(let i = 0; i <= 8; i++) {
       const random = randomString(5);
       avatars.push(`https://robohash.org/${random}.png?set=set5&size=50x50`)
-    }
-    setImageUrls(avatars)
+    };
+    setImageUrls(avatars);
   }
 
   function randomString(length) {
@@ -57,12 +53,12 @@ function Home(props) {
        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
-  }
+  };
 
   function handleCodeSubmit(e) {
     e.preventDefault();
     socket.emit("validateCode", joinGameCode)
-  }
+  };
 
   function handleJoinGameBtnClick() {
     setShowCodeInput(true)

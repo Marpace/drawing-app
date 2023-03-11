@@ -117,7 +117,6 @@ input::placeholder {
   justify-content: space-between;
   gap: 30px;
   border-radius: 10px;
-  margin-bottom: 50px;
 }
 .avatars-container__heading {
   text-align: center;
@@ -125,7 +124,7 @@ input::placeholder {
 }
 .avatars-container__grid {
   width: 100%;
-  max-width: 250px;
+  max-width: 200px;
   aspect-ratio: 1/1;
   display: flex;
   flex-wrap: wrap;
@@ -135,10 +134,11 @@ input::placeholder {
 .avatars-container__grid .grid-img {
   width: 23%;
   height: 23%;
-  max-width: 60px;
-  max-height: 60px;
+  max-width: 50px;
+  max-height: 50px;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 .avatars-container__grid .img--selected {
   outline: 4px solid #a2e27a;
@@ -147,6 +147,7 @@ input::placeholder {
   background-color: #a2e27a;
   padding: 4px 15px;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .home-btn {
@@ -159,6 +160,7 @@ input::placeholder {
   color: rgb(7, 7, 27);
   border-radius: 5px;
   border: none;
+  cursor: pointer;
 }
 
 .code-input-form {
@@ -204,7 +206,7 @@ input::placeholder {
   background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 .game-lobby .lobby-players__player {
   width: 30%;
@@ -219,6 +221,9 @@ input::placeholder {
 }
 .game-lobby .lobby-players .player-admin .player-avatar {
   outline: 4px solid #a2e27a;
+}
+.game-lobby .lobby-players .lobby-message {
+  color: #e2aeae;
 }
 .game-lobby .game-code-info {
   text-align: center;
@@ -261,6 +266,7 @@ input::placeholder {
   color: rgb(7, 7, 27);
   border-radius: 5px;
   border: none;
+  cursor: pointer;
 }
 
 .game-screen {
