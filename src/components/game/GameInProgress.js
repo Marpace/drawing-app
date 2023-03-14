@@ -67,6 +67,7 @@ function GameInProgress(props) {
         undo={undo}
         eraserActive={eraserActive}
         isCurrentPlayer={props.isCurrentPlayer}
+        setUndo={setUndo}
       />
 
       <ToolBar
@@ -112,9 +113,11 @@ function GameInProgress(props) {
         word={word}
         gameOver={props.gameOver}
         roundInProgress={props.roundInProgress}
+        currentPlayer={props.currentPlayer}
         players={props.players}
         gameStarted={props.gameStarted}
         isCurrentPlayer={props.isCurrentPlayer}
+        currentPlayerDisconnected={props.currentPlayerDisconnected}
       />
 
     </div>

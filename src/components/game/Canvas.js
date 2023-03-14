@@ -5,6 +5,8 @@ function Canvas(props) {
 
   const socket = useContext(SocketContext);
 
+  let ctx;
+
   const isDrawingRef = useRef(false);
   const canvasRef = useRef(null);
   const previousPoint = useRef(null);
@@ -20,7 +22,8 @@ function Canvas(props) {
   }, [socket])
 
   useEffect(() => {
-    undo();
+    ctx = canvasRef.current.getContext("2d")
+    if(props.undo) undo();
   }, [props.undo])
 
 
@@ -32,7 +35,6 @@ function Canvas(props) {
 
   function handleClearCanvasResponse() {
     console.log("Canvas cleared")
-    const ctx = canvasRef.current.getContext("2d");
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
   }
 
@@ -114,11 +116,11 @@ function Canvas(props) {
   }
 
   function undo() {
-    const ctx = canvasRef.current.getContext("2d");
     paths.splice(-1, 1)
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     drawPaths(paths);
     socket.emit("undo", paths)
+    props.setUndo(false);
   } 
   
   function drawPaths(paths) {

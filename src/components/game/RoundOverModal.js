@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 
 function RoundOverModal(props) {
 
-  const [modalHidden, setModalHidden] = useState(false);
   const [sortedPlayers, setSortedPlayers] = useState([]);
   
   useEffect(() => {
@@ -14,8 +13,8 @@ function RoundOverModal(props) {
 
       <div className={`game-modal__body round-over-modal-body`}>
         <p className="text--medium">{props.gameOver ? "Game over!" : "Round over!"}</p>
-        <p className={props.isCurrentPlayer ? "hidden" : ""}>The word was:</p>
-        <p className={`text--green ${props.isCurrentPlayer ? "hidden" : ""}`}>{props.word}</p>
+        <p className={props.isCurrentPlayer ? "hidden" : ""}>{props.currentPlayerDisconnected ? `${props.currentPlayer.username} has left the game` : "The word was:"}</p>
+        <p className={`text--green ${props.isCurrentPlayer || props.currentPlayerDisconnected ? "hidden" : ""}`}>{props.word}</p>
         <div className="game-modal__body-standings">
 
           {sortedPlayers.map((player, index) => (
