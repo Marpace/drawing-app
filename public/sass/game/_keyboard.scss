@@ -1,0 +1,90 @@
+.keyboard {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 20px;
+  width: 90%;
+  @include flex_centered(column);
+  gap: 4vw;
+
+  .guess {
+    position: absolute;
+    bottom: calc(100% + 20px);
+    text-align: center;
+    font-size: 1.3rem;
+    letter-spacing: 5px;
+    width: 100%;
+  }
+  &__row {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+
+    &:nth-child(4) {
+      width: 90%;
+      max-width: 533px;
+    }
+
+    &:nth-child(5) {
+      width: 85%;
+      max-width: 500px;
+    }
+    
+    &:nth-child(6) {
+      width: 75%;
+      max-width: 330px;
+    }
+
+    &-key {
+      border-radius: 2px;
+      width: 30px;
+      height: 35px;
+      padding: 6px 9px;
+      @include flex_centered(row);
+      font-size: 1.2rem;
+      background-color: $dark_blue;
+      @include responsive($tablet) {
+        font-size: 1.5rem;
+        width: 50px;
+        height: 45px;
+      }
+    }
+    .backspace {
+      height: 30px;
+      width: 40px;
+      background-image: url("../assets/images/backspace_icon.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 50%;
+    }
+    .hint-key {
+      width: 28px;
+      background-image: url("../assets/images/hint_icon.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 75%;
+    }
+    .space {
+      width: 90px
+    }
+    .enter {
+      width: 45px;
+      background-image: url("../assets/images/send_icon.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 50%;
+    }
+    .key-pressed {
+      animation-name: keyPress;
+      animation-duration: 200ms;
+    }
+    @keyframes keyPress {
+      0% {background-color: $white; color: $dark_blue}
+      100% {background-color: $dark_blue; color: $white}
+    }
+
+
+  }
+
+}

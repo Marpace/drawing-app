@@ -38,7 +38,7 @@ function Chat(props) {
 
 
   return (
-    <div className={`chat`}>
+    <div className={`chat ${props.isMobile ? "hidden" : ""}`}>
       <div className={props.roundInProgress && !props.chooseWord ? "chat__timer" : "hidden"} style={{"animationDuration": props.roundDuration}}></div>
       <div className="messages" ref={messagesRef}>
 

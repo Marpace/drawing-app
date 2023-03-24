@@ -104,7 +104,7 @@ function ToolBar(props) {
       </div> 
 
       <span 
-        onClick={() => socket.emit("clearCanvas", "cleared-by-player")} 
+        onClick={() => socket.emit("clearCanvas")} 
         className="clear-btn">
           Clear
       </span> 

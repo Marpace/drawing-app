@@ -58,7 +58,6 @@ function Game(props) {
   }
 
   function handleStartGameResponse(data) {
-    console.log(data)
     if(data.playerCount <= 1) {
       setLobbyMessage("Not enough players to start the game");
       return;
@@ -75,7 +74,7 @@ function Game(props) {
     setIsCurrentPlayer(false);
     setGameOver(data.gameOver);
     setCurrentPlayerDisconnected(data.playerDisconnected)
-    socket.emit("clearCanvas", "round-over")
+    // socket.emit("clearCanvas", "round-over")
   }
 
   return (

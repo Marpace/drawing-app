@@ -22,14 +22,17 @@ function Canvas(props) {
   }, [socket])
 
   useEffect(() => {
-    ctx = canvasRef.current.getContext("2d")
     if(props.undo) undo();
   }, [props.undo])
+  
+  useEffect(() => {
+    ctx = canvasRef.current.getContext("2d")
+  }, [])
 
 
   // handlers for incoming events from the server
   function handleDrawingResponse(data) {
-    const ctx = canvasRef.current.getContext("2d");
+    // const ctx = canvasRef.current.getContext("2d");
     drawLine(data.start, data.end, ctx, data.color, data.width)
   }
 
@@ -39,7 +42,7 @@ function Canvas(props) {
   }
 
   function handleUndoResponse(paths) {
-    const ctx = canvasRef.current.getContext("2d");
+    // const ctx = canvasRef.current.getContext("2d");
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     drawPaths(paths);
   }

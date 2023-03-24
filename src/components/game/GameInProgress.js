@@ -7,6 +7,8 @@ import Chat from "./Chat";
 import RoundOverModal from "./RoundOverModal";
 import Hint from "./Hint";
 import GamePlayers from "./GamePlayers";
+import MobileKeyboard from "./MobileKeyboard";
+import MobileGuess from "./MobileGuess";
 
 
 function GameInProgress(props) {
@@ -21,18 +23,27 @@ function GameInProgress(props) {
   const [isMobile, setIsMobile] = useState(() => window.screen.width < 1280 ? true : false)
   const [isDesktop, setIsDesktop] = useState(() => window.screen.width < 1280 ? false : true)
   const [guessedCorrectly, setGuessedCorrectly] = useState(false);
+  const [mobileGuess, setMobileGuess] = useState({author: null, content: null})
 
   useEffect(() => {
     socket.on("guessedCorrectly", () => setGuessedCorrectly(true))
+    socket.on("newGuessResponse", handleNewGuessResponse)
   }, [socket])
 
+
+  function handleNewGuessResponse(data) {
+    setMobileGuess({author: data.author, content: data.content})
+  }
 
   return (
     <div className={`game-screen ${props.gameStarted ? "" : "hidden"}`}>
 
+      <span className="new-mobile-guess">{}</span>
+
       <div className={`game-screen__heading ${props.isCurrentPlayer ? "hidden" : ""}`}>
         <p className={`text--medium`}>{`${props.currentPlayer.username} is drawing!`}</p>
         <Hint 
+          isMobile={isMobile}
           word={word}
         />
       </div>
@@ -81,18 +92,28 @@ function GameInProgress(props) {
         eraserActive={eraserActive}
         setBrushSize={setBrushSize}
         setBrushColor={setBrushColor}
-        // setClearCanvas={setClearCanvas} 
         setUndo={setUndo}
         setEraserActive={setEraserActive}
       />
 
       <Chat 
+        isMobile={isMobile}
         isCurrentPlayer={props.isCurrentPlayer}
         word={word}
         chooseWord={props.chooseWord}
         roundDuration={props.roundDuration}
         roundInProgress={props.roundInProgress}
         setGuessedCorrectly={setGuessedCorrectly}
+      />
+
+      <MobileKeyboard 
+        isMobile={isMobile}
+        isCurrentPlayer={props.isCurrentPlayer}
+        gameInProgress={props.gameInProgress}
+      />
+
+      <MobileGuess 
+        isMobile={isMobile}
       />
 
       <GamePlayers 

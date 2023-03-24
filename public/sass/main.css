@@ -696,8 +696,7 @@ input::placeholder {
 }
 .game-screen .chat {
   width: 100%;
-  max-width: 600px;
-  min-height: 200px;
+  max-height: 600px;
   padding: 15px;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 7px;
@@ -706,6 +705,7 @@ input::placeholder {
 }
 @media only screen and (min-width: 1280px) {
   .game-screen .chat {
+    padding: 15px;
     width: 300px;
   }
 }
@@ -714,7 +714,7 @@ input::placeholder {
   top: 0;
   left: 0;
   width: 100%;
-  height: 7px;
+  height: 5px;
   background-color: #a2e27a;
   animation: timer;
   animation-fill-mode: forwards;
@@ -729,14 +729,14 @@ input::placeholder {
 }
 .game-screen .chat .messages {
   width: 100%;
-  height: 170px;
+  height: 0px;
   overflow-y: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
 @media only screen and (min-width: 1280px) {
   .game-screen .chat .messages {
-    height: 530px;
+    height: 520px;
     margin-bottom: 15px;
   }
   .game-screen .chat .messages::-webkit-scrollbar {
@@ -787,51 +787,38 @@ input::placeholder {
   border: none;
 }
 .game-screen .hint {
-  height: 40px;
-  width: 40px;
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 5px;
-  border-radius: 4px;
-}
-.game-screen .hint__blank {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 90%;
+  width: 100%;
   padding: 5px 10px;
   position: absolute;
-  top: calc(100% + 30px);
+  bottom: calc(100% + 20px);
   left: 50%;
   translate: -50% 0;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.4);
-  transition-property: top;
-  transition-duration: 400ms;
 }
-.game-screen .hint__blank .blank-word {
+.game-screen .hint__word {
   display: flex;
   gap: 5px;
   margin: 0 10px;
 }
-.game-screen .hint__blank .blank-word .blank-section {
+.game-screen .hint__word .blank-section {
+  position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  align-items: flex-end;
   height: 25px;
+  width: 20px;
 }
-.game-screen .hint__blank .blank-word .blank-section .blank-underline {
+.game-screen .hint__word .blank-section .blank-underline {
+  position: absolute;
+  bottom: 0;
   width: 20px;
   height: 2px;
   background-color: rgb(247, 247, 247);
-}
-.game-screen .hint__blank .blank-word .blank-section .space {
-  width: 20px;
-}
-.game-screen .hint .hint-hidden {
-  top: -150px;
 }
 .game-screen .game-players {
   display: none;
@@ -861,6 +848,139 @@ input::placeholder {
 }
 .game-screen .game-players__player .player--green {
   outline: 4px solid #a2e27a;
+}
+.game-screen .keyboard {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 20px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4vw;
+}
+.game-screen .keyboard .guess {
+  position: absolute;
+  bottom: calc(100% + 20px);
+  text-align: center;
+  font-size: 1.3rem;
+  letter-spacing: 5px;
+  width: 100%;
+}
+.game-screen .keyboard__row {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: space-between;
+}
+.game-screen .keyboard__row:nth-child(4) {
+  width: 90%;
+  max-width: 533px;
+}
+.game-screen .keyboard__row:nth-child(5) {
+  width: 85%;
+  max-width: 500px;
+}
+.game-screen .keyboard__row:nth-child(6) {
+  width: 75%;
+  max-width: 330px;
+}
+.game-screen .keyboard__row-key {
+  border-radius: 2px;
+  width: 30px;
+  height: 35px;
+  padding: 6px 9px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 1.2rem;
+  background-color: #1E2D4D;
+}
+@media only screen and (min-width: 768px) {
+  .game-screen .keyboard__row-key {
+    font-size: 1.5rem;
+    width: 50px;
+    height: 45px;
+  }
+}
+.game-screen .keyboard__row .backspace {
+  height: 30px;
+  width: 40px;
+  background-image: url("../assets/images/backspace_icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+}
+.game-screen .keyboard__row .hint-key {
+  width: 28px;
+  background-image: url("../assets/images/hint_icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 75%;
+}
+.game-screen .keyboard__row .space {
+  width: 90px;
+}
+.game-screen .keyboard__row .enter {
+  width: 45px;
+  background-image: url("../assets/images/send_icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+}
+.game-screen .keyboard__row .key-pressed {
+  animation-name: keyPress;
+  animation-duration: 200ms;
+}
+@keyframes keyPress {
+  0% {
+    background-color: rgb(247, 247, 247);
+    color: #1E2D4D;
+  }
+  100% {
+    background-color: #1E2D4D;
+    color: rgb(247, 247, 247);
+  }
+}
+.game-screen .mobile-guesses {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.game-screen .mobile-guesses__item, .game-screen .mobile-guesses .correct-guess {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  translate: -50% 0;
+  padding: 5px 10px;
+  background-color: rgb(247, 247, 247);
+  border-radius: 3px;
+  opacity: 1;
+  color: #1E2D4D;
+}
+.game-screen .mobile-guesses .correct-guess {
+  background-color: #a2e27a;
+}
+.game-screen .mobile-guesses .show-guess {
+  animation-name: showGuess;
+  animation-duration: 2000ms;
+}
+@keyframes showGuess {
+  25% {
+    top: 100px;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    top: 100px;
+  }
 }
 
 .player-avatar {
