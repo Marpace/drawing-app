@@ -1,7 +1,6 @@
-import {useRef, useState, useContext, useEffect} from "react";
+import {useState} from "react";
 import ToolBar from './ToolBar';
 import Canvas from './Canvas';
-import {SocketContext} from "../context/socketContext";
 import ChooseWordModal from "./ChooseWordModal";
 import Chat from "./Chat";
 import RoundOverModal from "./RoundOverModal";
@@ -13,27 +12,14 @@ import MobileGuess from "./MobileGuess";
 
 function GameInProgress(props) {
 
-  const socket = useContext(SocketContext);
 
   const [brushColor, setBrushColor] = useState("#111111");
   const [brushSize, setBrushSize] = useState(3);
-  const [undo, setUndo] = useState(false);
   const [eraserActive, setEraserActive] = useState(false);
   const [word, setWord] = useState("")
   const [isMobile, setIsMobile] = useState(() => window.screen.width < 1280 ? true : false)
   const [isDesktop, setIsDesktop] = useState(() => window.screen.width < 1280 ? false : true)
-  const [guessedCorrectly, setGuessedCorrectly] = useState(false);
-  const [mobileGuess, setMobileGuess] = useState({author: null, content: null})
 
-  useEffect(() => {
-    socket.on("guessedCorrectly", () => setGuessedCorrectly(true))
-    socket.on("newGuessResponse", handleNewGuessResponse)
-  }, [socket])
-
-
-  function handleNewGuessResponse(data) {
-    setMobileGuess({author: data.author, content: data.content})
-  }
 
   return (
     <div className={`game-screen ${props.gameStarted ? "" : "hidden"}`}>
@@ -64,8 +50,6 @@ function GameInProgress(props) {
         eraserActive={eraserActive}
         setBrushSize={setBrushSize}
         setBrushColor={setBrushColor}
-        // setClearCanvas={setClearCanvas} 
-        setUndo={setUndo}
         setEraserActive={setEraserActive} 
       />
 
@@ -74,11 +58,8 @@ function GameInProgress(props) {
         height={600}
         brushColor={brushColor}
         brushSize={brushSize}
-        // clearCanvas={clearCanvas}
-        undo={undo}
         eraserActive={eraserActive}
         isCurrentPlayer={props.isCurrentPlayer}
-        setUndo={setUndo}
       />
 
       <ToolBar
@@ -92,7 +73,6 @@ function GameInProgress(props) {
         eraserActive={eraserActive}
         setBrushSize={setBrushSize}
         setBrushColor={setBrushColor}
-        setUndo={setUndo}
         setEraserActive={setEraserActive}
       />
 
@@ -103,7 +83,6 @@ function GameInProgress(props) {
         chooseWord={props.chooseWord}
         roundDuration={props.roundDuration}
         roundInProgress={props.roundInProgress}
-        setGuessedCorrectly={setGuessedCorrectly}
       />
 
       <MobileKeyboard 
@@ -118,7 +97,6 @@ function GameInProgress(props) {
 
       <GamePlayers 
         username={props.username}
-        guessedCorrectly={guessedCorrectly}
         players={props.players}
       />
 

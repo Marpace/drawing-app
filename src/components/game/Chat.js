@@ -22,7 +22,6 @@ function Chat(props) {
 
   useEffect(() => {
     if(props.roundInProgress) {
-      props.setGuessedCorrectly(false);
       setMessages([]);
     }
   }, [props.roundInProgress])

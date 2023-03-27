@@ -46,6 +46,8 @@ function Game(props) {
     socket.on("roundOver", handleRoundOver)
     socket.on("gameOver", handleGameOver)
     socket.on("playerDisconnected", (players) => setPlayers(players))
+    socket.on("updateGamePlayers", (players) => setPlayers(players))
+     
   }, [socket])
 
   useEffect(() => {

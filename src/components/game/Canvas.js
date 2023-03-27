@@ -5,50 +5,53 @@ function Canvas(props) {
 
   const socket = useContext(SocketContext);
 
-  let ctx;
-
   const isDrawingRef = useRef(false);
   const canvasRef = useRef(null);
   const previousPoint = useRef(null);
 
-  const [paths, setPaths] = useState([]);
   const [points, setPoints] = useState([])
 
 
   useEffect(() => {
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d")
+
     socket.on("drawingResponse", handleDrawingResponse);
     socket.on("clearCanvasResponse", handleClearCanvasResponse);
     socket.on("undoResponse", handleUndoResponse);
+
+     // handlers for incoming events from the server
+    function handleDrawingResponse(data) {
+      drawLine(data.start, data.end, ctx, data.color, data.width)
+    }
+
+    function handleClearCanvasResponse() {
+      console.log("Canvas cleared")
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function handleUndoResponse(paths) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawPaths(paths);
+    }
+
+    function drawPaths(paths) {
+      paths.forEach(path => {
+        ctx.beginPath();
+        ctx.lineWidth = path.brushSize;
+        ctx.strokeStyle = path.brushColor;
+        ctx.moveTo(path.points[0].x, path.points[0].y)
+        for(let i = 0; i < path.points.length; i++) {
+          ctx.lineTo(path.points[i].x, path.points[i].y)
+        }
+        ctx.stroke();
+      })
+    }
+
   }, [socket])
-
-  useEffect(() => {
-    if(props.undo) undo();
-  }, [props.undo])
-  
-  useEffect(() => {
-    ctx = canvasRef.current.getContext("2d")
-  }, [])
-
-
-  // handlers for incoming events from the server
-  function handleDrawingResponse(data) {
-    // const ctx = canvasRef.current.getContext("2d");
-    drawLine(data.start, data.end, ctx, data.color, data.width)
-  }
-
-  function handleClearCanvasResponse() {
-    console.log("Canvas cleared")
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-  }
-
-  function handleUndoResponse(paths) {
-    // const ctx = canvasRef.current.getContext("2d");
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-    drawPaths(paths);
-  }
-
-
-  //listeners for mouse and touch events
+ 
+ //listeners for mouse and touch events
   function mouseDownListener() {
     isDrawingRef.current = true
     setPoints([]);
@@ -76,19 +79,15 @@ function Canvas(props) {
   function mouseUpListener() {
     isDrawingRef.current = false;
     previousPoint.current = null;
-    setPaths(prev => {
-      return [
-        ...prev,
-        {
-          points: points,
-          brushColor: props.brushColor,
-          brushSize: props.brushSize
-        }
-      ]
-    })
+    const newPath = {
+      points: points,
+      brushColor: props.brushColor,
+      brushSize: props.brushSize
+    }
+    socket.emit("updatePaths", newPath)
   }
 
-
+  
   // canvas functions 
   function getPointInCanvas(clientX, clientY) {
     if(!canvasRef.current) return null;
@@ -117,30 +116,6 @@ function Canvas(props) {
     ctx.lineTo(end.x, end.y)
     ctx.stroke();
   }
-
-  function undo() {
-    paths.splice(-1, 1)
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-    drawPaths(paths);
-    socket.emit("undo", paths)
-    props.setUndo(false);
-  } 
-  
-  function drawPaths(paths) {
-    const ctx = canvasRef.current.getContext("2d");
-    paths.forEach(path => {
-      ctx.beginPath();
-      ctx.lineWidth = path.brushSize;
-      ctx.strokeStyle = path.brushColor;
-      ctx.moveTo(path.points[0].x, path.points[0].y)
-      for(let i = 0; i < path.points.length; i++) {
-        ctx.lineTo(path.points[i].x, path.points[i].y)
-      }
-      ctx.stroke();
-    })
-  }
-
-
 
   return (
     <canvas

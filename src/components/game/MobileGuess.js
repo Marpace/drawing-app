@@ -1,7 +1,7 @@
 import {SocketContext} from "../context/socketContext";
 import {useState, useContext, useEffect} from "react";
 
-function MobileGuess() {
+function MobileGuess(props) {
 
   const socket = useContext(SocketContext)
 

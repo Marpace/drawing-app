@@ -92,7 +92,7 @@ function ToolBar(props) {
       </div>
 
       <div 
-        onClick={() => props.setUndo(prev => prev ? false : true)} 
+        onClick={() => socket.emit("undo")} 
         className="undo-btn">
           <img src="./assets/images/undo_icon.svg" alt="undo icon"></img>
       </div>
