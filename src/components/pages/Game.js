@@ -11,6 +11,8 @@ function Game(props) {
 
   const socket = useContext(SocketContext); 
   const [isCurrentPlayer, setIsCurrentPlayer] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [roomCode, setRoomCode] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
   const [chooseWord, setChooseWord] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState({});
@@ -42,6 +44,7 @@ function Game(props) {
     }
     socket.on("startGameResponse", handleStartGameResponse)
     socket.on("currentPlayer", () => setIsCurrentPlayer(true))
+    socket.on("isAdmin", handleIsAdmin);
     socket.on("joinGameResponse", (data) => setPlayers(data))
     socket.on("roundOver", handleRoundOver)
     socket.on("gameOver", handleGameOver)
@@ -70,22 +73,29 @@ function Game(props) {
     setRoundInProgress(true);
   }
 
+  function handleIsAdmin(code) {
+    console.log("is admin")
+    setIsAdmin(true);
+    setRoomCode(code)
+  }
+
   function handleRoundOver(data) {
     setRoundInProgress(false);
     setPlayers(data.players);
     setIsCurrentPlayer(false);
     setGameOver(data.gameOver);
     setCurrentPlayerDisconnected(data.playerDisconnected)
-    // socket.emit("clearCanvas", "round-over")
+    setLobbyMessage("")
   }
 
   return (
     <main className="game-main">
       <GameLobby 
+        roomCode={roomCode}
+        isAdmin={isAdmin}
         gameStarted={gameStarted}
         avatarUrl={props.avatarUrl}
-        joinGame={props.joinGame}
-        roundDuration={roundDuration}
+        roundDuration={roundDuration} 
         players={players}
         lobbyMessage={lobbyMessage}
         setPlayers={setPlayers}

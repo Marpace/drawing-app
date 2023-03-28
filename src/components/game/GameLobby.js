@@ -6,7 +6,6 @@ function GameLobby(props) {
 
   const socket = useContext(SocketContext);
 
-  const [roomCode, setRoomCode] = useState("")
   const [playerIsReady, setPlayerIsReady] = useState(false);
 
 
@@ -24,9 +23,8 @@ function GameLobby(props) {
     socket.on("playerReadyResponse", (data) => props.setPlayers(data))
   }, [socket])
 
-  function handleCreateGameResponse(data) {
-    setRoomCode(data.roomCode);
-    props.setPlayers(data.players);
+  function handleCreateGameResponse(players) {
+    props.setPlayers(players);
   }
 
   return (
@@ -41,10 +39,10 @@ function GameLobby(props) {
         ))}
       <p className={`lobby-message ${props.players.length <= 1 ? "" : "hidden"}`}>{props.lobbyMessage}</p>
       </div> 
-      <p className={`game-code-info ${!roomCode ? "hidden" : ""}`}>Share this game code with other players:</p>
-      <p className={`game-code ${!roomCode ? "hidden" : ""}`}>{roomCode}</p>
-      <p className={`lobby-text ${!roomCode ? "hidden" : ""}`}>Choose drawing time</p>
-      <div className={`drawing-time ${!roomCode ? "hidden" : ""}`}>
+      <p className={`game-code-info ${!props.isAdmin ? "hidden" : ""}`}>Share this game code with other players:</p>
+      <p className={`game-code ${!props.isAdmin ? "hidden" : ""}`}>{props.roomCode}</p>
+      <p className={`lobby-text ${!props.isAdmin ? "hidden" : ""}`}>Choose drawing time</p>
+      <div className={`drawing-time ${!props.isAdmin ? "hidden" : ""}`}>
         <span 
           onClick={() => props.setRoundDuration("30s")}
           className={`drawing-time__option ${props.roundDuration === "30s" ? "text--green" : ""}`}>
@@ -68,12 +66,12 @@ function GameLobby(props) {
       </div>
       <button 
         onClick={() => socket.emit("startGame", props.roundDuration)} 
-        className={`lobby-btn ${!roomCode ? "hidden" : ""}`}>
+        className={`lobby-btn ${!props.isAdmin ? "hidden" : ""}`}>
         Start game
       </button>
       <button 
         onClick={handleReadyClick} 
-        className={`lobby-btn ${props.joinGame && !playerIsReady ? "" : "hidden"}`}>
+        className={`lobby-btn ${!props.isAdmin && !playerIsReady ? "" : "hidden"}`}>
         Ready
       </button>
     </div>
