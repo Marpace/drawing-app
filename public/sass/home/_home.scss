@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 350px;
   height: fit-content;
-  background-color: $transparent_gray;
+  background-color: $transparent_dark_gray;
   padding: 20px 40px 30px;
   @include flex_centered(column);
   justify-content: space-between;
@@ -29,6 +29,7 @@
       max-height: 50px;
       border-radius: 50%;
       background-color: $transparent_gray;
+      outline: 2px solid $white;
       cursor:pointer;
     }
     .img--selected {
@@ -39,6 +40,7 @@
     background-color: $ready_green;
     padding: 4px 15px;
     border-radius: 3px;
+    color: black;
     cursor:pointer;
   }
 }

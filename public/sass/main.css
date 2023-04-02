@@ -107,7 +107,7 @@ input::placeholder {
   width: 100%;
   max-width: 350px;
   height: fit-content;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.8);
   padding: 20px 40px 30px;
   display: flex;
   flex-direction: column;
@@ -138,6 +138,7 @@ input::placeholder {
   max-height: 50px;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.4);
+  outline: 2px solid rgb(247, 247, 247);
   cursor: pointer;
 }
 .avatars-container__grid .img--selected {
@@ -147,6 +148,7 @@ input::placeholder {
   background-color: #a2e27a;
   padding: 4px 15px;
   border-radius: 3px;
+  color: black;
   cursor: pointer;
 }
 
@@ -543,6 +545,7 @@ input::placeholder {
   width: 40%;
   height: fit-content;
   padding: 3px 10px;
+  cursor: pointer;
 }
 .game-screen .game-modal .hide-modal {
   animation: hideModal;

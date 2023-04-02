@@ -16,7 +16,7 @@ function Home(props) {
   const [joinGameCode, setJoinGameCode] = useState("");
 
   useEffect(() => {
-    getRandomAvatars();
+    getRandomAvatars(9);
 
     socket.on("validateCodeResponse", handleValidateCodeResponse)
   }, [socket])
@@ -36,24 +36,24 @@ function Home(props) {
     }
   }
 
-  function getRandomAvatars() { 
-    let avatars = [];
-    for(let i = 0; i <= 8; i++) {
-      const random = randomString(5);
-      avatars.push(`https://robohash.org/${random}.png?set=set5&size=50x50`)
+  function getRandomAvatars(n) { 
+    let condition;
+    let randomNumbers = [];
+    for(let i = 0; i < n; i++) {
+      do {
+        const randomNumber = Math.ceil(Math.random() * 55);
+        condition = randomNumbers.includes(randomNumber)
+        if(!condition) randomNumbers.push(randomNumber)
+      } while (condition);
     };
-    setImageUrls(avatars);
-  }
-
-  function randomString(length) {
-    var result           = '';
-    var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  };
+    setImageUrls(() => {
+      let arr = []
+      randomNumbers.forEach(number => {
+        arr.push(`./assets/images/meme-avatars/meme (${number}).jpg`)
+      })
+      return arr;
+    });
+  }  
 
   function handleCodeSubmit(e) {
     e.preventDefault();
@@ -91,7 +91,7 @@ function Home(props) {
           ))}
         </div>
 
-        <span onClick={() => getRandomAvatars()} className="avatars-container__get-more">Get more</span>
+        <span onClick={() => getRandomAvatars(9)} className="avatars-container__get-more">Get more</span>
       </div>
 
       <button 
