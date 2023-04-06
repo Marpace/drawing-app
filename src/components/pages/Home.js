@@ -68,6 +68,8 @@ function Home(props) {
   return (
     <main>
 
+      <h1 className="game-title">Sketch</h1>
+
       <input 
         className="username-input"
         onChange={(e) => props.setUsername(e.target.value)} 

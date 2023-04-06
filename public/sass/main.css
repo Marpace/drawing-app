@@ -103,11 +103,23 @@ input::placeholder {
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "RampartOne-Regular";
+  src: url("../assets/fonts/RampartOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+.game-title {
+  font-family: "RampartOne-Regular", sans-serif;
+  font-size: 3rem;
+}
+
 .avatars-container {
   width: 100%;
   max-width: 350px;
   height: fit-content;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
   padding: 20px 40px 30px;
   display: flex;
   flex-direction: column;
@@ -217,6 +229,9 @@ input::placeholder {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+}
+.game-lobby .lobby-players__player .player-avatar {
+  outline: 2px solid rgb(247, 247, 247);
 }
 .game-lobby .lobby-players__player .admin-status {
   background-color: rgb(247, 247, 247);
