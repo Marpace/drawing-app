@@ -28,6 +28,9 @@
       align-items: center;
       gap: 10px;
       
+      .player-avatar {
+        outline: 2px solid $white;
+      }
       .admin-status{
         background-color: $white
       }
